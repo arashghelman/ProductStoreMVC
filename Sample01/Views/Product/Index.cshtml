@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Sample01.Models.DomainModels.DTO.EF.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Our Products<hr class="h1-hr"></h1>
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-sm-6 productDiv">
+            <h2>
+                @Html.DisplayFor(modelItem => item.ProductName)
+                <hr>
+            </h2>
+            <div class="product-image">
+                @{
+                    if (item.ProductPhoto != null)
+                    {
+                        var base64 = Convert.ToBase64String(item.ProductPhoto);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        <img src='@imgSrc' style="max-width:default; max-height:default;" />
+                    }
+                }
+            </div>
+            <div class="product-info">
+                <span class="information">
+                    Category: &nbsp;
+                    <br><br>
+                    Unit Price: &nbsp;
+                    <br><br>
+                    Discount: &nbsp;
+                    <br><br>
+                    Quantity: &nbsp;
+                </span>
+                <span class="product-info">
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    <br><br>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                    <br><br>
+                    @Html.DisplayFor(modelItem => item.Discount)
+                    <br><br>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </span>
+            </div>
+        </div>
+    </div>
+}
+<link href="~/Content/Custom/productIndex.css" rel="stylesheet" />
+
