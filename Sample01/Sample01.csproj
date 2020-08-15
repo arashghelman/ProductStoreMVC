@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="Models\DomainModels\POCO\CategoryCrud.cs" />
     <Compile Include="Models\DomainModels\POCO\ProductCrud.cs" />
+    <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

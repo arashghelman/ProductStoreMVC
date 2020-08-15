@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Sample01.Models.DomainModels.DTO.EF.Category>
+﻿@model Sample01.Models.ViewModels.CategoryViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -16,12 +16,12 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            @Html.DisplayNameFor(model => model.Title)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.GetCategory())
     {
         <tr>
             <td>
