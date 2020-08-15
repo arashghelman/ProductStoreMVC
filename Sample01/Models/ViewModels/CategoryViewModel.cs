@@ -17,7 +17,7 @@ namespace Sample01.Models.ViewModels
 
         #region [- props -]
         private DomainModels.POCO.CategoryCrud Ref_CategoryCrud { get; set; }
-        private DomainModels.DTO.EF.Category Ref_Category { get; set; }
+        internal DomainModels.DTO.EF.Category Ref_Category { get; set; }
         #endregion
 
         #region [- props for Model -]
@@ -38,7 +38,31 @@ namespace Sample01.Models.ViewModels
         {
             var categoryList = Ref_CategoryCrud.Select();
             return categoryList;
+        }
+        #endregion
+
+        #region [- PostCategory(DomainModels.DTO.EF.Category ref_Category) -]
+        internal void PostCategory(DomainModels.DTO.EF.Category ref_Category)
+        {
+            Ref_CategoryCrud.Insert(ref_Category);
+        }
+        #endregion
+
+        #region [- GetCategoryById(int? id) -]
+        public CategoryViewModel GetCategoryById(int? id)
+        {
+            var category = Ref_CategoryCrud.FindId(id);
+            CategoryViewModel ref_CategoryViewModel = new CategoryViewModel()
+            {
+                Title = category.CategoryName
+            };
+            return ref_CategoryViewModel;
         } 
         #endregion
+
+        internal void PutCategory(DomainModels.DTO.EF.Category ref_Category)
+        {
+            Ref_CategoryCrud.Update(ref_Category);
+        }
     }
 }

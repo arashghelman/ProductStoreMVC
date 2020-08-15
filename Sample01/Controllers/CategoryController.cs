@@ -51,66 +51,65 @@ namespace Sample01.Controllers
         //}
         //#endregion
 
-        //#region [- Create -]
-        //#region [- Get -]
-        //[Route("Create")]
-        //[HttpGet]
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-        //#endregion
+        #region [- Create -]
+        #region [- Get -]
+        [Route("Create")]
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View(Ref_CategoryViewModel);
+        }
+        #endregion
 
-        //#region [- Post -]
-        //[Route("Create")]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Id,CategoryName")] Category ref_Category)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        Ref_CategoryCrud.Insert(ref_Category);
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(ref_Category);
-        //}
-        //#endregion
-        //#endregion
+        #region [- Post -]
+        [Route("Create")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Models.ViewModels.CategoryViewModel ref_CategoryViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                ref_CategoryViewModel.PostCategory(ref_CategoryViewModel.Ref_Category);
+                return RedirectToAction("Index");
+            }
+            return View(ref_CategoryViewModel);
+        }
+        #endregion
+        #endregion
 
-        //#region [- Edit -]
+        #region [- Edit -]
 
-        //#region [- Get -]
-        //[Route("Edit/{id:int}")]
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    var category = Ref_CategoryCrud.FindId(id);
-        //    if (category == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(category);
-        //}
-        //#endregion
+        #region [- Get -]
+        [Route("Edit/{id:int}")]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var category = Ref_CategoryViewModel.GetCategoryById(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
+        }
+        #endregion
 
-        //#region [- Post -]
-        //[Route("Edit/{id:int}")]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,CategoryName")] Category ref_Category)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        Ref_CategoryCrud.Update(ref_Category);
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(ref_Category);
-        //}
-        //#endregion
-        //#endregion
+        #region [- Post -]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Models.ViewModels.CategoryViewModel ref_CategoryViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                ref_CategoryViewModel.PutCategory(ref_CategoryViewModel.Ref_Category);
+                return RedirectToAction("Index");
+            }
+            return View(ref_CategoryViewModel);
+        }
+        #endregion
+        #endregion
 
         //#region [- Delete -]
 
