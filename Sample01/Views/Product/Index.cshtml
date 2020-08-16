@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Sample01.Models.DomainModels.DTO.EF.Product>
+﻿@model Sample01.Models.ViewModels.ProductViewModel
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h1>Our Products<hr class="h1-hr"></h1>
-@foreach (var item in Model)
+@foreach (var item in Model.GetProduct())
 {
     <div class="row">
         <div class="col-sm-6 productDiv">

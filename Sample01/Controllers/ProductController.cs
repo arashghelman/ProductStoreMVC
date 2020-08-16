@@ -16,14 +16,14 @@ namespace Sample01.Controllers
         #region [- ctors -]
         public ProductController()
         {
-            Ref_ProductCrud = new ProductCrud();
-            Ref_CategoryCrud = new CategoryCrud();
+            Ref_ProductViewModel = new Models.ViewModels.ProductViewModel();
+            Ref_CategoryViewModel = new Models.ViewModels.CategoryViewModel();
         }
         #endregion
 
         #region [- props -]
-        public ProductCrud Ref_ProductCrud { get; set; }
-        public CategoryCrud Ref_CategoryCrud { get; set; }
+        public Models.ViewModels.ProductViewModel Ref_ProductViewModel { get; set; }
+        public Models.ViewModels.CategoryViewModel Ref_CategoryViewModel { get; set; }
         #endregion
 
         #region [- Actions -]
@@ -32,7 +32,7 @@ namespace Sample01.Controllers
         [Route("")]
         public ActionResult Index()
         {
-            return View(Ref_ProductCrud.Select());
+            return View(Ref_ProductViewModel);
         }
         #endregion
 
@@ -43,8 +43,8 @@ namespace Sample01.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.Category_Ref = new SelectList(Ref_CategoryCrud.Select(), "Id", "CategoryName");
-            return View();
+            ViewBag.Category_Ref = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName");
+            return View(Ref_ProductViewModel);
         }
         #endregion
 
@@ -52,119 +52,120 @@ namespace Sample01.Controllers
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id, Category_Ref, ProductName, UnitPrice, Discount, Quantity, ProductPhoto")] Product product, HttpPostedFileBase fileBase)
+        public ActionResult Create(Models.ViewModels.ProductViewModel ref_ProductViewModel, HttpPostedFileBase fileBase)
         {
 
             if (ModelState.IsValid)
             {
                 if (fileBase != null)
                 {
-                    product.ProductPhoto = new byte[fileBase.ContentLength];
-                    fileBase.InputStream.Read(product.ProductPhoto, 0, fileBase.ContentLength);
-                    Ref_ProductCrud.Insert(product);
+                    ref_ProductViewModel.ProductPhoto = new byte[fileBase.ContentLength];
+                    fileBase.InputStream.Read(ref_ProductViewModel.ProductPhoto, 0, fileBase.ContentLength);
+                    ref_ProductViewModel.PostProduct();
                     return RedirectToAction("Index");
                 }
             }
-            ViewBag.Category_Ref = new SelectList(Ref_CategoryCrud.Select(), "Id", "CategoryName", product.Category_Ref);
-            return View(product);
+            ViewBag.Category_Ref = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName", 
+                ref_ProductViewModel.CategoryId);
+            return View(ref_ProductViewModel);
         }
         #endregion
 
         #endregion
 
-        #region [- Details(int? id) -]
-        [Route("{id:int}")]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var ref_Product = Ref_ProductCrud.FindId(id);
-            if (ref_Product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ref_Product);
-        } 
-        #endregion
+        //#region [- Details(int? id) -]
+        //[Route("{id:int}")]
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var ref_Product = Ref_ProductCrud.FindId(id);
+        //    if (ref_Product == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(ref_Product);
+        //} 
+        //#endregion
 
-        #region [- Delete -]
+        //#region [- Delete -]
 
-        #region [- Get -]
-        [Route("Delete/{id:int}")]
-        [HttpGet]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var product = Ref_ProductCrud.FindId(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
-        #endregion
+        //#region [- Get -]
+        //[Route("Delete/{id:int}")]
+        //[HttpGet]
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var product = Ref_ProductCrud.FindId(id);
+        //    if (product == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(product);
+        //}
+        //#endregion
 
-        #region [- Post -]
-        [Route("Delete/{id:int}")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
-        {
-            Ref_ProductCrud.Delete(id);
-            return RedirectToAction("Index");
-        }
-        #endregion
+        //#region [- Post -]
+        //[Route("Delete/{id:int}")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id)
+        //{
+        //    Ref_ProductCrud.Delete(id);
+        //    return RedirectToAction("Index");
+        //}
+        //#endregion
 
-        #endregion
+        //#endregion
 
-        #region [- Edit -]
+        //#region [- Edit -]
 
-        #region [- Get -]
-        [Route("Edit/{id:int}")]
-        [HttpGet]
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var ref_Product = Ref_ProductCrud.FindId(id);
-            if (ref_Product == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Category_Ref = new SelectList(Ref_CategoryCrud.Select(), "Id", "CategoryName");
-            return View(ref_Product);
-        }
-        #endregion
+        //#region [- Get -]
+        //[Route("Edit/{id:int}")]
+        //[HttpGet]
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var ref_Product = Ref_ProductCrud.FindId(id);
+        //    if (ref_Product == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.Category_Ref = new SelectList(Ref_CategoryCrud.Select(), "Id", "CategoryName");
+        //    return View(ref_Product);
+        //}
+        //#endregion
 
-        #region [- Post -]
-        [Route("Edit/{id:int}")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id, Category_Ref, ProductName, UnitPrice, Discount, Quantity, ProductPhoto")] Product ref_Product, HttpPostedFileBase fileBase)
-        {
-            if (ModelState.IsValid)
-            {
-                if (fileBase != null)
-                {
-                    ref_Product.ProductPhoto = new byte[fileBase.ContentLength];
-                    fileBase.InputStream.Read(ref_Product.ProductPhoto, 0, fileBase.ContentLength);
-                }
-                Ref_ProductCrud.Update(ref_Product);
-                return RedirectToAction("Index");
-            }
-            ViewBag.Category_Ref = new SelectList(Ref_CategoryCrud.Select(), "Id", "CategoryName", ref_Product.Category_Ref);
-            return View(ref_Product);
-        }  
-        #endregion
+        //#region [- Post -]
+        //[Route("Edit/{id:int}")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id, Category_Ref, ProductName, UnitPrice, Discount, Quantity, ProductPhoto")] Product ref_Product, HttpPostedFileBase fileBase)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (fileBase != null)
+        //        {
+        //            ref_Product.ProductPhoto = new byte[fileBase.ContentLength];
+        //            fileBase.InputStream.Read(ref_Product.ProductPhoto, 0, fileBase.ContentLength);
+        //        }
+        //        Ref_ProductCrud.Update(ref_Product);
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.Category_Ref = new SelectList(Ref_CategoryCrud.Select(), "Id", "CategoryName", ref_Product.Category_Ref);
+        //    return View(ref_Product);
+        //}  
+        //#endregion
 
-        #endregion
+        //#endregion
         #endregion
     }
 }

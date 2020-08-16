@@ -5,6 +5,7 @@
     margin-right: auto;
     color: black;
     text-align: center;
+    display: inline-block;
 }
 h1 {
     font-family: 'Baloo Thambi 2', cursive;
