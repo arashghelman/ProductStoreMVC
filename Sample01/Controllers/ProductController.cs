@@ -61,7 +61,7 @@ namespace Sample01.Controllers
                 {
                     ref_ProductViewModel.ProductPhoto = new byte[fileBase.ContentLength];
                     fileBase.InputStream.Read(ref_ProductViewModel.ProductPhoto, 0, fileBase.ContentLength);
-                    ref_ProductViewModel.PostProduct();
+                    ref_ProductViewModel.PostProduct(ref_ProductViewModel.Ref_Product);
                     return RedirectToAction("Index");
                 }
             }

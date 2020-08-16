@@ -56,7 +56,6 @@ namespace Sample01.Models.ViewModels
         }
 
 
-
         private DomainModels.POCO.ProductCrud Ref_ProductCrud { get; set; }
         public DomainModels.DTO.EF.Product Ref_Product { get; set; }
 
@@ -66,9 +65,9 @@ namespace Sample01.Models.ViewModels
             return productList;
         }
 
-        internal void PostProduct()
+        internal void PostProduct(DomainModels.DTO.EF.Product ref_Product)
         {
-            Ref_ProductCrud.Insert(Ref_Product);
+            Ref_ProductCrud.Insert(ref_Product);
         }
     }
 }
