@@ -18,6 +18,7 @@ namespace Sample01.Controllers
         {
             Ref_ProductViewModel = new Models.ViewModels.ProductViewModel();
             Ref_CategoryViewModel = new Models.ViewModels.CategoryViewModel();
+            var product = new Models.DomainModels.DTO.EF.Product();
         }
         #endregion
 
