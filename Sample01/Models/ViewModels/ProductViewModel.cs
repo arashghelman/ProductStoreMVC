@@ -11,7 +11,6 @@ namespace Sample01.Models.ViewModels
         {
             Ref_ProductCrud = new DomainModels.POCO.ProductCrud();
             Ref_Product = new DomainModels.DTO.EF.Product();
-            Ref_Category = new DomainModels.DTO.EF.Category();
         }
 
         public int ProductId
@@ -55,9 +54,9 @@ namespace Sample01.Models.ViewModels
             get { return Ref_Product.ProductPhoto; }
             set { Ref_Product.ProductPhoto = value; }
         }
+
         private DomainModels.POCO.ProductCrud Ref_ProductCrud { get; set; }
         public DomainModels.DTO.EF.Product Ref_Product { get; set; }
-        public DomainModels.DTO.EF.Category Ref_Category { get; set; }
 
         public List<DomainModels.DTO.EF.Product> GetProduct()
         {

@@ -43,7 +43,7 @@ namespace Sample01.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.Category_Ref = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName");
+            ViewBag.CategoryList = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName");
             return View(Ref_ProductViewModel);
         }
         #endregion
@@ -64,9 +64,9 @@ namespace Sample01.Controllers
                     ref_ProductViewModel.PostProduct(ref_ProductViewModel.Ref_Product);
                     return RedirectToAction("Index");
                 }
-            }
-            ViewBag.Category_Ref = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName", 
+                ViewBag.CategoryList = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName",
                 ref_ProductViewModel.CategoryId);
+            }
             return View(ref_ProductViewModel);
         }
         #endregion
