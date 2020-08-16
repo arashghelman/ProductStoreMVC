@@ -53,7 +53,8 @@ namespace Sample01.Controllers
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Models.ViewModels.ProductViewModel ref_ProductViewModel, HttpPostedFileBase fileBase)
+        public ActionResult Create([Bind(Include = "ProductId, CategoryId, Title, UnitPrice, Discount, UnitsInStock, ProductPhoto")]
+        Models.ViewModels.ProductViewModel ref_ProductViewModel, HttpPostedFileBase fileBase)
         {
 
             if (ModelState.IsValid)
