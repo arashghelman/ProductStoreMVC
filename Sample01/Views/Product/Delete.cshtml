@@ -1,4 +1,4 @@
-﻿@model Sample01.Models.DomainModels.DTO.EF.Product
+﻿@model Sample01.Models.ViewModels.ProductViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -12,11 +12,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
+            @Html.DisplayNameFor(model => model.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProductName)
+            @Html.DisplayFor(model => model.Title)
         </dd>
 
         <dt>
@@ -36,11 +36,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.UnitsInStock)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Quantity)
+            @Html.DisplayFor(model => model.UnitsInStock)
         </dd>
 
         <dt>
@@ -59,11 +59,11 @@
             </dd>
         
         <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
+            @Html.DisplayNameFor(model => model.CategoryName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
 
     </dl>

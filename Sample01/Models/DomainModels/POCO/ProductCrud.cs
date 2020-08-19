@@ -126,9 +126,9 @@ namespace Sample01.Models.DomainModels.POCO
             {
                 try
                 {
-                    Product ref_Product = context.Product.Find(id);
-                    int categoryId = ref_Product.Category.Id;
-                    return ref_Product;
+                    var product = context.Product.Find(id);
+                    int categoryId = product.Category.Id;
+                    return product;
                 }
                 catch (Exception)
                 {
