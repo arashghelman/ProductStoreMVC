@@ -7,13 +7,15 @@ namespace Sample01.Models.ViewModels
 {
     public class ProductViewModel
     {
+        #region [- ctor -]
         public ProductViewModel()
         {
             Ref_ProductCrud = new DomainModels.POCO.ProductCrud();
             Ref_Product = new DomainModels.DTO.EF.Product();
-            Ref_Category = new DomainModels.DTO.EF.Category();
         }
+        #endregion
 
+        #region [- props -]
         public int ProductId
         {
             get { return Ref_Product.Id; }
@@ -56,24 +58,22 @@ namespace Sample01.Models.ViewModels
             set { Ref_Product.ProductPhoto = value; }
         }
 
-        public string CategoryName
-        {
-            get { return Ref_Category.CategoryName; }
-            set { Ref_Category.CategoryName = value; }
-        }
 
 
         private DomainModels.POCO.ProductCrud Ref_ProductCrud { get; set; }
         public DomainModels.DTO.EF.Product Ref_Product { get; set; }
         public DomainModels.DTO.EF.Category Ref_Category { get; set; }
+        #endregion
 
+        #region [- Methods -]
+        #region [- GetProduct() -]
         public List<ProductViewModel> GetProduct()
         {
             var productList = Ref_ProductCrud.Select();
             var productViewModelList = productList.Select(p => new ProductViewModel()
             {
                 Title = p.ProductName,
-                CategoryName = p.Category_Ref.ToString(),
+                CategoryId = p.Category_Ref,
                 ProductPhoto = p.ProductPhoto,
                 UnitPrice = p.UnitPrice,
                 Discount = p.Discount,
@@ -81,35 +81,51 @@ namespace Sample01.Models.ViewModels
             }).ToList();
             return productViewModelList;
         }
+        #endregion
 
+        #region [- PostProduct(DomainModels.DTO.EF.Product ref_Product) -]
         internal void PostProduct(DomainModels.DTO.EF.Product ref_Product)
         {
             Ref_ProductCrud.Insert(ref_Product);
         }
+        #endregion
 
-        internal ViewModels.ProductViewModel GetProductById(int? id)
-        {
-            var product = Ref_ProductCrud.FindId(id);
-            var productViewModel = new ProductViewModel()
-            {
-                Title = product.ProductName,
-                UnitPrice = product.UnitPrice,
-                Discount = product.Discount,
-                UnitsInStock = product.Quantity,
-                ProductPhoto = product.ProductPhoto,
-                CategoryName = product.Category.CategoryName
-            };
-            return productViewModel;
-        }
+        //#region [- GetProductById(int? id) -]
+        //internal ViewModels.ProductViewModel GetProductById(int? id)
+        //{
+        //    var product = Ref_ProductCrud.FindId(id);
+        //    var productViewModel = new ProductViewModel()
+        //    {
+        //        Title = product.ProductName,
+        //        UnitPrice = product.UnitPrice,
+        //        Discount = product.Discount,
+        //        UnitsInStock = product.Quantity,
+        //        ProductPhoto = product.ProductPhoto,
+        //        CategoryName = product.Category.CategoryName
+        //    };
+        //    return productViewModel;
+        //}
+        //#endregion
 
+        #region [- DeleteProduct(int id) -]
         internal void DeleteProduct(int id)
         {
             Ref_ProductCrud.Delete(id);
         }
+        #endregion
 
+        #region [- PutProduct(DomainModels.DTO.EF.Product ref_Product) -]
         internal void PutProduct(DomainModels.DTO.EF.Product ref_Product)
         {
             Ref_ProductCrud.Update(ref_Product);
+        }  
+        #endregion
+
+        internal dynamic GetCategoryItems()
+        {
+            var categoryItemsList = Ref_ProductCrud.SelectCategoryItems();
+            return categoryItemsList;
         }
+        #endregion
     }
 }

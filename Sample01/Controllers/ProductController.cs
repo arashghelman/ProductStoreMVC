@@ -43,7 +43,7 @@ namespace Sample01.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.CategoryList = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName");
+            ViewBag.CategoryList = new SelectList(Ref_ProductViewModel.GetCategoryItems(), "Id", "CategoryName");
             return View(Ref_ProductViewModel);
         }
         #endregion
@@ -64,7 +64,7 @@ namespace Sample01.Controllers
                     ref_ProductViewModel.PostProduct(ref_ProductViewModel.Ref_Product);
                     return RedirectToAction("Index");
                 }
-                ViewBag.CategoryList = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName",
+                ViewBag.CategoryList = new SelectList(ref_ProductViewModel.GetCategoryItems(), "Id", "CategoryName",
                 ref_ProductViewModel.CategoryId);
             }
             return View(ref_ProductViewModel);
@@ -90,82 +90,82 @@ namespace Sample01.Controllers
         //} 
         //#endregion
 
-        #region [- Delete -]
+        //#region [- Delete -]
 
-        #region [- Get -]
-        [Route("Delete/{id:int}")]
-        [HttpGet]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var product = Ref_ProductViewModel.GetProductById(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
-        #endregion
+        //#region [- Get -]
+        //[Route("Delete/{id:int}")]
+        //[HttpGet]
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var product = Ref_ProductViewModel.GetProductById(id);
+        //    if (product == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(product);
+        //}
+        //#endregion
 
-        #region [- Post -]
-        [Route("Delete/{id:int}")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
-        {
-            Ref_ProductViewModel.DeleteProduct(id);
-            return RedirectToAction("Index");
-        }
-        #endregion
+        //#region [- Post -]
+        //[Route("Delete/{id:int}")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id)
+        //{
+        //    Ref_ProductViewModel.DeleteProduct(id);
+        //    return RedirectToAction("Index");
+        //}
+        //#endregion
 
-        #endregion
+        //#endregion
 
-        #region [- Edit -]
+        //#region [- Edit -]
 
-        #region [- Get -]
-        [Route("Edit/{id:int}")]
-        [HttpGet]
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var product = Ref_ProductViewModel.GetProductById(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Category_Ref = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName");
-            return View(product);
-        }
-        #endregion
+        //#region [- Get -]
+        //[Route("Edit/{id:int}")]
+        //[HttpGet]
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var product = Ref_ProductViewModel.GetProductById(id);
+        //    if (product == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.Category_Ref = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName");
+        //    return View(product);
+        //}
+        //#endregion
 
-        #region [- Post -]
-        [Route("Edit/{id:int}")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Models.ViewModels.ProductViewModel ref_ProductViewModel, HttpPostedFileBase fileBase)
-        {
-            if (ModelState.IsValid)
-            {
-                if (fileBase != null)
-                {
-                    ref_ProductViewModel.ProductPhoto = new byte[fileBase.ContentLength];
-                    fileBase.InputStream.Read(ref_ProductViewModel.ProductPhoto, 0, fileBase.ContentLength);
-                }
-                ref_ProductViewModel.PutProduct(ref_ProductViewModel.Ref_Product);
-                return RedirectToAction("Index");
-            }
-            ViewBag.Category_Ref = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName", ref_ProductViewModel.CategoryId);
-            return View(ref_ProductViewModel);
-        }
-        #endregion
+        //#region [- Post -]
+        //[Route("Edit/{id:int}")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(Models.ViewModels.ProductViewModel ref_ProductViewModel, HttpPostedFileBase fileBase)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (fileBase != null)
+        //        {
+        //            ref_ProductViewModel.ProductPhoto = new byte[fileBase.ContentLength];
+        //            fileBase.InputStream.Read(ref_ProductViewModel.ProductPhoto, 0, fileBase.ContentLength);
+        //        }
+        //        ref_ProductViewModel.PutProduct(ref_ProductViewModel.Ref_Product);
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.Category_Ref = new SelectList(Ref_CategoryViewModel.GetCategory(), "Id", "CategoryName", ref_ProductViewModel.CategoryId);
+        //    return View(ref_ProductViewModel);
+        //}
+        //#endregion
 
-        #endregion
+        //#endregion
         #endregion
     }
 }

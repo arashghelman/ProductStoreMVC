@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backups", "Backups", "{FC24
 		C:\Store Backup\ProductStore.bak = C:\Store Backup\ProductStore.bak
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample02", "Sample02\Sample02.csproj", "{A9951C99-A9D7-40B1-B7DA-C5B0DFAC785A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{0C8C7CC6-A0E4-4091-B693-D8C1136644EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C8C7CC6-A0E4-4091-B693-D8C1136644EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C8C7CC6-A0E4-4091-B693-D8C1136644EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9951C99-A9D7-40B1-B7DA-C5B0DFAC785A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9951C99-A9D7-40B1-B7DA-C5B0DFAC785A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9951C99-A9D7-40B1-B7DA-C5B0DFAC785A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9951C99-A9D7-40B1-B7DA-C5B0DFAC785A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

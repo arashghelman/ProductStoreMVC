@@ -142,6 +142,32 @@ namespace Sample01.Models.DomainModels.POCO
                     }
                 }
             }
+        }
+        #endregion
+
+        #region [- SelectCategoryItems() -]
+        internal dynamic SelectCategoryItems()
+        {
+            using (var context = new ProductStoreEntities())
+            {
+                try
+                {
+                    var categoryItemsList = context.Category.Select(c => new { c.Id, c.CategoryName }).ToList();
+                    return categoryItemsList;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                finally
+                {
+                    if (context != null)
+                    {
+                        context.Dispose();
+                    }
+                }
+            }
         } 
         #endregion
 

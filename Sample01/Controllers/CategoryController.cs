@@ -34,22 +34,6 @@ namespace Sample01.Controllers
         #endregion
 
         #endregion
-        //#region [- Details(int? id) -]
-        //[Route("{id:int}")]
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Category ref_Category = Ref_CategoryCrud.FindId(id);
-        //    if (ref_Category == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(ref_Category);
-        //}
-        //#endregion
 
         #region [- Create -]
         #region [- Get -]
@@ -104,7 +88,7 @@ namespace Sample01.Controllers
         {
             if (ModelState.IsValid)
             {
-                ref_CategoryViewModel.PutCategory(ref_CategoryViewModel);
+                ref_CategoryViewModel.PutCategory(ref_CategoryViewModel.Ref_Category);
                 return RedirectToAction("Index");
             }
             return View(ref_CategoryViewModel);

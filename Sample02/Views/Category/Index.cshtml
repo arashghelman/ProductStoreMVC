@@ -1,0 +1,83 @@
+﻿@model Sample02.Models.ViewModels.CategoryViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/Custom/index.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Custom/index.js"></script>
+    <title>Index</title>
+</head>
+<body>
+    <nav class="navbar navbar-default col-sm-12">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Product Store</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a href="#">Page 1</a>
+                </li>
+                <li>
+                    <a href="#">Page 2</a>
+                </li>
+                <li>
+                    <a href="#">Page 3</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container col-sm-12">
+        <div class="row col-sm-10">
+            @using (Html.BeginForm())
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes:new {@class="form-label col-sm-1"})
+                    &nbsp;
+                    @Html.TextBoxFor(model => model.Title, new { @id = "title", htmlAttributes = new { @class = "form-textbox col-sm-9" } })
+                </div>
+                <div class="col-sm-1">
+                    <input class="btn-add" type="button" value="Add"/>
+                    <br />
+                </div>
+            }
+        </div>
+        <br />
+        <div class="row col-sm-12">
+            <table class="table table-hover category-table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.GetCategory())
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            <input type="checkbox" />
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</body>
+</html>

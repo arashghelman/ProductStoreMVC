@@ -35,10 +35,15 @@ namespace Sample01.Models.ViewModels
         #endregion
 
         #region [- GetCategory() -]
-        public List<DomainModels.DTO.EF.Category> GetCategory()
+        public List<CategoryViewModel> GetCategory()
         {
             var categoryList = Ref_CategoryCrud.Select();
-            return categoryList;
+            var categoryViewModelList = categoryList.Select(c => new CategoryViewModel()
+            {
+                CategoryId = c.Id,
+                Title = c.CategoryName
+            }).ToList();
+            return categoryViewModelList;
         }
         #endregion
 
@@ -50,7 +55,7 @@ namespace Sample01.Models.ViewModels
         #endregion
 
         #region [- GetCategoryById(int? id) -]
-        public CategoryViewModel GetCategoryById(int? id)
+        internal CategoryViewModel GetCategoryById(int? id)
         {
             var category = Ref_CategoryCrud.FindId(id);
             CategoryViewModel ref_CategoryViewModel = new CategoryViewModel()
@@ -59,20 +64,21 @@ namespace Sample01.Models.ViewModels
                 Title = category.CategoryName
             };
             return ref_CategoryViewModel;
-        } 
+        }
         #endregion
 
-        internal void PutCategory(ViewModels.CategoryViewModel categoryViewModel)
+        #region [- PutCategory(ViewModels.CategoryViewModel categoryViewModel) -]
+        internal void PutCategory(DomainModels.DTO.EF.Category ref_Category)
         {
-            Models.DomainModels.DTO.EF.Category category = new DomainModels.DTO.EF.Category();
-            category.Id = categoryViewModel.CategoryId;
-            category.CategoryName = categoryViewModel.Title;
-            Ref_CategoryCrud.Update(category);
+            Ref_CategoryCrud.Update(ref_Category);
         }
+        #endregion
 
+        #region [- DeleteCategory(int id) -]
         internal void DeleteCategory(int id)
         {
             Ref_CategoryCrud.Delete(id);
-        }
+        } 
+        #endregion
     }
 }
