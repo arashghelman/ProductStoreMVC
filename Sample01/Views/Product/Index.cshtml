@@ -4,22 +4,23 @@
     ViewBag.Title = "Index";
 }
 
-<h1>Our Products<hr class="h1-hr"></h1>
+<h1>Our Products</h1>
+<hr class="h1-hr">
 @foreach (var item in Model.GetProduct())
 {
     <div class="row">
         <div class="col-sm-6 productDiv">
             <h2>
                 @Html.DisplayFor(modelItem => item.Title)
-                <hr>
             </h2>
+            <hr>
             <div class="product-image">
                 @{
                     if (item.ProductPhoto != null)
                     {
                         var base64 = Convert.ToBase64String(item.ProductPhoto);
                         var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        <img src='@imgSrc' style="max-width:default; max-height:default;" />
+                        <img src='@imgSrc'/>
                     }
                 }
             </div>
@@ -34,7 +35,7 @@
                     Quantity: &nbsp;
                 </span>
                 <span class="product-info">
-                    @*@Html.DisplayFor(modelItem => item.CategoryName)*@
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
                     <br><br>
                     @Html.DisplayFor(modelItem => item.UnitPrice)
                     <br><br>
