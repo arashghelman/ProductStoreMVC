@@ -22,6 +22,7 @@ namespace Sample02.Models.DomainModels.POCO
             {
                 try
                 {
+                    context.Configuration.ProxyCreationEnabled = false;
                     var categoryList = context.Category.ToList();
                     return categoryList;
                 }
