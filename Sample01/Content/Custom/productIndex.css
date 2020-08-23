@@ -1,12 +1,4 @@
-﻿.productDiv {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    color: black;
-    text-align: center;
-    display: inline-block;
-}
+﻿
 h1 {
     font-family: 'Baloo Thambi 2', cursive;
     font-size: xx-large;
@@ -19,11 +11,6 @@ h2 {
     font-weight: bolder;
     padding-top: 5px
 }
-hr {
-    background-color: rgb(144, 224, 22);
-    height: 3px;
-    border: 1px solid white;
-}
 .h1-hr{
     background-color: black;
     height: 2px;
@@ -35,9 +22,17 @@ img{
 .information, .product-info {
     float: left;
     font-family: 'Baloo Thambi 2', cursive;
-    font-size: large;
-    padding-top: 10px;
+    font-size: medium;
+    padding: 10px;
 }
 .information{
     font-weight: bold;
 }
+#product-title {
+    background-color: rgb(220,220,220);
+    text-align: center;
+}
+.product-image {
+    float: left;
+}
+

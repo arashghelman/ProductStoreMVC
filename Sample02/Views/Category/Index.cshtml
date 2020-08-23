@@ -39,14 +39,15 @@
         <div class="row col-sm-10">
             @using (Html.BeginForm())
             {
+                @Html.AntiForgeryToken()
+
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Title, htmlAttributes:new {@class="form-label col-sm-1"})
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "form-label col-sm-1" })
                     &nbsp;
                     @Html.TextBoxFor(model => model.Title, new { @id = "title", htmlAttributes = new { @class = "form-textbox col-sm-9" } })
                 </div>
                 <div class="col-sm-1">
-                    <input class="btn-add" type="button" value="Add"/>
-                    <br />
+                    <input class="btn-add" type="button" value="Add" />
                 </div>
             }
         </div>
