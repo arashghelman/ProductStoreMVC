@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -35,10 +36,12 @@ namespace Sample02.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Create(Models.DomainModels.DTO.EF.Category ref_Category)
+        public ActionResult Create(JObject jObject)
         {
             if (ModelState.IsValid)
             {
+                var category = jObject.ToObject<Models.DomainModels.DTO.EF.Category>();
+                Ref_CategoryViewModel.PostCategory(category);
                 return Json(new { Message = "Success" }, JsonRequestBehavior.AllowGet);
             }
             else
