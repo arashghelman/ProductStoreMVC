@@ -30,15 +30,15 @@ namespace Sample01.Models.ViewModels
         public byte[] ProductPhoto { get; set; }
 
         public Models.DomainModels.DTO.EF.Category Category { get; set; }
-
         private DomainModels.POCO.ProductCrud Ref_ProductCrud { get; set; }
-        public DomainModels.DTO.EF.Category Ref_Category { get; set; }
+
+        public List<ProductViewModel> ProductList { get { return GetProduct(); } }
         #endregion
 
         #region [- Methods -]
 
         #region [- GetProduct() -]
-        public List<ProductViewModel> GetProduct()
+        internal List<ProductViewModel> GetProduct()
         {
             var productList = Ref_ProductCrud.Select();
             var productViewModelList = productList.Select(p => new ProductViewModel()
