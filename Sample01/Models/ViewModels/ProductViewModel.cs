@@ -33,6 +33,9 @@ namespace Sample01.Models.ViewModels
 
         private DomainModels.POCO.ProductCrud Ref_ProductCrud { get; set; }
         public DomainModels.DTO.EF.Category Ref_Category { get; set; }
+
+        public List<ProductViewModel> ProductList { get { return GetProduct(); } }
+
         #endregion
 
         #region [- Methods -]
