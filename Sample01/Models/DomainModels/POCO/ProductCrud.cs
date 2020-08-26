@@ -146,7 +146,7 @@ namespace Sample01.Models.DomainModels.POCO
         #endregion
 
         #region [- SelectCategoryItems() -]
-        internal dynamic SelectCategoryItems()
+        public dynamic SelectCategoryItems()
         {
             using (var context = new ProductStoreEntities())
             {

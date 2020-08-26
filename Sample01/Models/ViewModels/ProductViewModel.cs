@@ -30,7 +30,7 @@ namespace Sample01.Models.ViewModels
         public byte[] ProductPhoto { get; set; }
 
         public Models.DomainModels.DTO.EF.Category Category { get; set; }
-        private DomainModels.POCO.ProductCrud Ref_ProductCrud { get; set; }
+        public DomainModels.POCO.ProductCrud Ref_ProductCrud { get; set; }
 
         public List<ProductViewModel> ProductList { get { return GetProduct(); } }
         #endregion
@@ -38,7 +38,7 @@ namespace Sample01.Models.ViewModels
         #region [- Methods -]
 
         #region [- GetProduct() -]
-        internal List<ProductViewModel> GetProduct()
+        public List<ProductViewModel> GetProduct()
         {
             var productList = Ref_ProductCrud.Select();
             var productViewModelList = productList.Select(p => new ProductViewModel()
@@ -56,7 +56,7 @@ namespace Sample01.Models.ViewModels
         #endregion
 
         #region [- PostProduct() -]
-        internal void PostProduct()
+        public void PostProduct()
         {
             DomainModels.DTO.EF.Product ref_Product = new DomainModels.DTO.EF.Product
             {
@@ -72,7 +72,7 @@ namespace Sample01.Models.ViewModels
         #endregion
 
         #region [- GetProductById(int? id) -]
-        internal ProductViewModel GetProductById(int? id)
+        public ProductViewModel GetProductById(int? id)
         {
             var product = Ref_ProductCrud.FindId(id);
             ProductViewModel ref_ProductViewModel = new ProductViewModel()
@@ -90,14 +90,14 @@ namespace Sample01.Models.ViewModels
         #endregion
 
         #region [- DeleteProduct(int id) -]
-        internal void DeleteProduct(int id)
+        public void DeleteProduct(int id)
         {
             Ref_ProductCrud.Delete(id);
         }
         #endregion
 
         #region [- PutProduct(DomainModels.DTO.EF.Product ref_Product) -]
-        internal void PutProduct()
+        public void PutProduct()
         {
             DomainModels.DTO.EF.Product ref_Product = new DomainModels.DTO.EF.Product()
             {
@@ -113,7 +113,7 @@ namespace Sample01.Models.ViewModels
         #endregion
 
         #region [- GetCategoryItems() -]
-        internal dynamic GetCategoryItems()
+        public dynamic GetCategoryItems()
         {
             var categoryItemsList = Ref_ProductCrud.SelectCategoryItems();
             return categoryItemsList;

@@ -5,16 +5,6 @@ VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample01", "Sample01\Sample01.csproj", "{0C8C7CC6-A0E4-4091-B693-D8C1136644EC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{8B851514-692E-422E-8D15-5783EDECE113}"
-	ProjectSection(SolutionItems) = preProject
-		CreateTables.sql = CreateTables.sql
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backups", "Backups", "{FC24D45F-1D8E-4E06-8BF2-976C64DAB28E}"
-	ProjectSection(SolutionItems) = preProject
-		C:\Store Backup\ProductStore.bak = C:\Store Backup\ProductStore.bak
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample02", "Sample02\Sample02.csproj", "{A9951C99-A9D7-40B1-B7DA-C5B0DFAC785A}"
 EndProject
 Global

@@ -16,8 +16,8 @@ namespace Sample01.Models.ViewModels
         #endregion
 
         #region [- props -]
-        private DomainModels.POCO.CategoryCrud Ref_CategoryCrud { get; set; }
-        internal DomainModels.DTO.EF.Category Ref_Category { get; set; }
+        public DomainModels.POCO.CategoryCrud Ref_CategoryCrud { get; set; }
+        public DomainModels.DTO.EF.Category Ref_Category { get; set; }
         #endregion
 
         #region [- props for Model -]
@@ -48,14 +48,14 @@ namespace Sample01.Models.ViewModels
         #endregion
 
         #region [- PostCategory(DomainModels.DTO.EF.Category ref_Category) -]
-        internal void PostCategory(DomainModels.DTO.EF.Category ref_Category)
+        public void PostCategory(DomainModels.DTO.EF.Category ref_Category)
         {
             Ref_CategoryCrud.Insert(ref_Category);
         }
         #endregion
 
         #region [- GetCategoryById(int? id) -]
-        internal CategoryViewModel GetCategoryById(int? id)
+        public CategoryViewModel GetCategoryById(int? id)
         {
             var category = Ref_CategoryCrud.FindId(id);
             CategoryViewModel ref_CategoryViewModel = new CategoryViewModel()
@@ -68,14 +68,14 @@ namespace Sample01.Models.ViewModels
         #endregion
 
         #region [- PutCategory(ViewModels.CategoryViewModel categoryViewModel) -]
-        internal void PutCategory(DomainModels.DTO.EF.Category ref_Category)
+        public void PutCategory(DomainModels.DTO.EF.Category ref_Category)
         {
             Ref_CategoryCrud.Update(ref_Category);
         }
         #endregion
 
         #region [- DeleteCategory(int id) -]
-        internal void DeleteCategory(int id)
+        public void DeleteCategory(int id)
         {
             Ref_CategoryCrud.Delete(id);
         } 
