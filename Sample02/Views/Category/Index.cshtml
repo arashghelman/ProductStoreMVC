@@ -14,47 +14,34 @@
     <title>Index</title>
 </head>
 <body>
-    <nav class="navbar navbar-default col-sm-12">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Product Store</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active">
-                    <a href="#">Home</a>
-                </li>
-                <li>
-                    <a href="#">Page 1</a>
-                </li>
-                <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    @{ 
+        Html.RenderPartial("_HeaderLayout");
+    }
     <div class="container col-sm-12">
         <div class="row col-sm-10">
             @using (Html.BeginForm())
             {
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Title, htmlAttributes:new {@class="form-label col-sm-1"})
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "form-label col-sm-1" })
                     &nbsp;
                     @Html.TextBoxFor(model => model.Title, new { @id = "title", htmlAttributes = new { @class = "form-textbox col-sm-9" } })
                 </div>
                 <div class="col-sm-1">
-                    <input id="btn-add" type="button" value="Add"/>
-                    <br />
+                    <input id="btn-add" type="button" value="Add" />
+                </div>
+                <div class="col-sm-1">
+                    <input id="btn-remove" type="button" value="Remove" />
+                </div>
+                <div class="col-sm-1">
+                    <input id="btn-edit" type="button" value="Edit" />
                 </div>
             }
         </div>
         <br />
-        <div class="row col-sm-12">
+        <div class="row col-sm-12" id="table-div">
             <table class="table table-hover category-table">
                 <tr>
-                    <th>
+                    <th hidden>
                         @Html.DisplayNameFor(model => model.Id)
                     </th>
                     <th>
@@ -65,14 +52,14 @@
                 @foreach (var item in Model.GetCategory())
                 {
                     <tr>
-                        <td>
+                        <td id="id-cell" hidden>
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
-                        <td>
+                        <td id="title-cell">
                             @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
-                            <input type="checkbox" />
+                            <input id="table-checkbox" type="checkbox" />
                         </td>
                     </tr>
                 }

@@ -38,14 +38,39 @@ namespace Sample02.Models.ViewModels
         }
 
         #region [- PostCategory(DomainModels.DTO.EF.Category ref_Category) -]
-        internal void PostCategory(DomainModels.DTO.EF.Category ref_Category)
+        internal void PostCategory(CategoryViewModel ref_CategoryViewModel)
         {
-            ref_Category = new DomainModels.DTO.EF.Category()
+            Ref_Category = new DomainModels.DTO.EF.Category()
             {
-                CategoryName = Title
+                CategoryName = ref_CategoryViewModel.Title
             };
-            Ref_CategoryRepository.Insert(ref_Category);
+            Ref_CategoryRepository.Insert(Ref_Category);
+        }
+        #endregion
+
+        #region [- DeleteCategory(CategoryViewModel ref_CategoryViewModel) -]
+        internal void DeleteCategory(CategoryViewModel ref_CategoryViewModel)
+        {
+            Ref_Category = new DomainModels.DTO.EF.Category()
+            {
+                Id = ref_CategoryViewModel.Id
+            };
+            Ref_CategoryRepository.Delete(Ref_Category.Id);
+        }
+        #endregion
+
+        #region [- PutCategory(CategoryViewModel ref_CategoryViewModel) -]
+        internal void PutCategory(CategoryViewModel ref_CategoryViewModel)
+        {
+            Ref_Category = new DomainModels.DTO.EF.Category()
+            {
+                Id = ref_CategoryViewModel.Id,
+                CategoryName = ref_CategoryViewModel.Title
+            };
+
+            Ref_CategoryRepository.Update(Ref_Category);
         } 
         #endregion
+
     }
 }

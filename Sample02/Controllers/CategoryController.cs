@@ -34,22 +34,54 @@ namespace Sample02.Controllers
 
         #region [- Create(Models.DomainModels.DTO.EF.Category ref_Category) -]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Create(JObject jObject)
+        [Route("Create")]
+        public ActionResult Create(Models.ViewModels.CategoryViewModel ref_CategoryViewModel)
         {
             if (ModelState.IsValid)
             {
-                var category = jObject.ToObject<Models.DomainModels.DTO.EF.Category>();
-                Ref_CategoryViewModel.PostCategory(category);
+                Ref_CategoryViewModel.PostCategory(ref_CategoryViewModel);
                 return Json(new { Message = "Success" }, JsonRequestBehavior.AllowGet);
             }
             else
             {
                 return Json(new { ModelState_IsValid = "False", JsonRequestBehavior.AllowGet });
             }
-        } 
+        }
         #endregion
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("Delete")]
+        public ActionResult Delete(Models.ViewModels.CategoryViewModel ref_CategoryViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Ref_CategoryViewModel.DeleteCategory(ref_CategoryViewModel);
+                return Json(JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { JsonRequestBehavior.AllowGet });
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("Edit")]
+        public ActionResult Edit(Models.ViewModels.CategoryViewModel ref_CategoryViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Ref_CategoryViewModel.PutCategory(ref_CategoryViewModel);
+                return Json(JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { JsonRequestBehavior.AllowGet });
+            }
+        }
 
     }
 }
