@@ -1,22 +1,118 @@
-﻿<!DOCTYPE html>
+﻿@model Sample02.Models.ViewModels.ProductViewModel
+
+<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta name="viewport" content="width=device-width" />
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/Content/Custom/index.css" />
+    <link rel="stylesheet" href="~/Content/Custom/product.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="~/Scripts/Custom/index.js"></script>
     <title>Index</title>
 </head>
 <body>
-    @{ 
+    @{
         Html.RenderPartial("_HeaderLayout");
     }
-    <div> 
+    <div class="container col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
+                @using (Html.BeginForm())
+                {
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            @Html.LabelFor(model => model.Title)
+                            @Html.TextBoxFor(model => model.Title, new { @id = "title", htmlAttributes = new { @class = "form-textbox col-sm-9" } })
+                            <br />
+                            @Html.LabelFor(model => model.UnitPrice)
+                            @Html.TextBoxFor(model => model.UnitPrice, new { @id = "unitPrice", htmlAttributes = new { @class = "form-textbox col-sm-9" } })
+                            <br />
+                            @Html.LabelFor(model => model.Discount)
+                            @Html.TextBoxFor(model => model.Discount, new { @id = "discount", htmlAttributes = new { @class = "form-textbox col-sm-9" } })
+                            <br />
+                            @Html.LabelFor(model => model.Quantity)
+                            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @id = "quantity", @class = "form-textbox col-sm-9", @min = "0" } })
+                            <br />
+                            @Html.LabelFor(model => model.CategoryRef, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("CategoryList", null, "--select category--", htmlAttributes: new { @id = "categoryRef" })
+                        </div>
+                        <br />
+                        <div class="col-sm-6">
+                            <input type="button" id="btn-add" value="Add"/>
+                        </div>
+                    </div>
+                }
+                    <hr />
+                    @foreach (var item in Model.ProductList)
+                    {
+                        <div class="col-sm-3 product-card">
+                            <div class="category-div">
+                                @Html.DisplayFor(modelItem => item.Ref_Category.CategoryName)
+                            </div>
+                            <div class="product-title-div">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </div>
+                            <hr />
+                            @if (item.ProductPhoto != null)
+                            {
+                                var base64 = Convert.ToBase64String(item.ProductPhoto);
+                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                <div class="image-div">
+                                    <img class="product-image" src='@imgSrc' />
+                                </div>
+                            }
+                            @Html.DisplayNameFor(modelItem => item.UnitPrice):
+                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                            <br />
+                            @if (item.Discount != 0)
+                            {
+                                @Html.DisplayNameFor(modelItem => item.Discount);
+                                @Html.DisplayFor(modelItem => item.Discount);
+                            }
+                        </div>
+                    }
+
+                </div>
+        </div>
     </div>
+    <script type="text/javascript">
+        function sendAjaxRequest(url, type, data) {
+            return $.ajax({
+                url: url,
+                type: type,
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+            }).fail(function (error) {
+                console.log(error);
+            });
+        };
+
+        var ref_ProductViewModel = new Object();
+        var inputs = new Object();
+        var selectedCategory;
+
+        function createProduct() {
+            ref_ProductViewModel.categoryRef = selectedCategory;
+            ref_ProductViewModel.title = $("#title").val();
+            ref_ProductViewModel.unitPrice = $("#unitPrice").val();
+            ref_ProductViewModel.discount = $("#discount").val();
+            ref_ProductViewModel.quantity = $("#quantity").val();
+            console.log(ref_ProductViewModel);
+            //sendAjaxRequest('/Product/Create/', 'POST', ref_ProductViewModel);
+        }
+        $(document).ready(function () {
+
+            $("#btn-add").click(createProduct);
+
+            $("#categoryRef").change(function () {
+                selectedCategory = $(this).children("option:selected").val();
+            })
+        })
+
+    </script>
 </body>
 </html>

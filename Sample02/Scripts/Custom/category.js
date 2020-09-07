@@ -1,4 +1,4 @@
-﻿function sendAjaxRequest (url, type, data) {
+﻿function sendAjaxRequest(url, type, data) {
     return $.ajax({
         url: url,
         type: type,
@@ -9,6 +9,7 @@
         console.log(error);
     });
 };
+
 
 var ref_CategoryViewModel = new Object();
 var inputs = new Object();
