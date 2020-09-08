@@ -21,6 +21,11 @@
     position: absolute;
 }
 
+#btn-remove {
+    float: right;
+    position: absolute;
+}
+
 .product-title-div {
     padding-top: 22px;
     font-size: 19px;

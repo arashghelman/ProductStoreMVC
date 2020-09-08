@@ -55,6 +55,7 @@
                             <div class="product-title-div">
                                 @Html.DisplayFor(modelItem => item.Title)
                             </div>
+                            <span id="product-id" hidden>@Html.DisplayFor(modelItem => item.Id)</span>
                             <hr />
                             @if (item.ProductPhoto != null)
                             {
@@ -64,14 +65,19 @@
                                     <img class="product-image" src='@imgSrc' />
                                 </div>
                             }
-                            @Html.DisplayNameFor(modelItem => item.UnitPrice):
-                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                            <span>@Html.DisplayNameFor(modelItem => item.UnitPrice):</span>
+                            <span>@Html.DisplayFor(modelItem => item.UnitPrice)</span>
                             <br />
                             @if (item.Discount != 0)
                             {
-                                @Html.DisplayNameFor(modelItem => item.Discount);
-                                @Html.DisplayFor(modelItem => item.Discount);
+                                <div>
+                                    @Html.DisplayNameFor(modelItem => item.Discount);
+                                    <span>@Html.DisplayFor(modelItem => item.Discount)</span>
+                                </div>
                             }
+                            <span>@Html.DisplayFor(modelItem => item.Quantity)</span>
+                            <br />
+                            <button id="btn-select">Select</button>
                         </div>
                     }
 
@@ -79,38 +85,59 @@
         </div>
     </div>
     <script type="text/javascript">
-        function sendAjaxRequest(url, type, data) {
-            return $.ajax({
-                url: url,
-                type: type,
-                data: JSON.stringify(data),
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-            }).fail(function (error) {
-                console.log(error);
-            });
-        };
 
-        var ref_ProductViewModel = new Object();
-        var inputs = new Object();
-        var selectedCategory;
-
-        function createProduct() {
-            ref_ProductViewModel.categoryRef = selectedCategory;
-            ref_ProductViewModel.title = $("#title").val();
-            ref_ProductViewModel.unitPrice = $("#unitPrice").val();
-            ref_ProductViewModel.discount = $("#discount").val();
-            ref_ProductViewModel.quantity = $("#quantity").val();
-            console.log(ref_ProductViewModel);
-            //sendAjaxRequest('/Product/Create/', 'POST', ref_ProductViewModel);
-        }
         $(document).ready(function () {
+            function sendAjaxRequest(url, type, data) {
+                return $.ajax({
+                    url: url,
+                    type: type,
+                    data: JSON.stringify(data),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                }).fail(function (error) {
+                    console.log(error);
+                });
+            };
 
-            $("#btn-add").click(createProduct);
+            var ref_ProductViewModel = new Object();
+            var inputs = new Object();
+            var selectedCategory;
+            function createProduct() {
+                ref_ProductViewModel.categoryRef = selectedCategory;
+                ref_ProductViewModel.title = $("#title").val();
+                ref_ProductViewModel.unitPrice = $("#unitPrice").val();
+                ref_ProductViewModel.discount = $("#discount").val();
+                ref_ProductViewModel.quantity = $("#quantity").val();
+                console.log(ref_ProductViewModel);
+                sendAjaxRequest('/Product/Create/', 'POST', ref_ProductViewModel);
+            }
 
             $("#categoryRef").change(function () {
                 selectedCategory = $(this).children("option:selected").val();
+                console.log(this.children.option.innerHTML);
             })
+
+            $("#btn-add").click(createProduct);
+
+            $("#btn-select").click(function () {
+                var $this = this;
+                var divContent = $this.closest("div").children;
+                console.log(divContent);
+                inputs = {
+                    category: divContent[0].innerText,
+                    title: divContent[1].innerText,
+                    productId: divContent[2].innerText,
+                    unitPrice: divContent[6].innerText,
+                    discount: divContent[8] ? divContent[8].children[0].innerText : null,
+                    quantity: divContent[9].innerText                   
+                }
+                console.log(inputs);
+                $("#title").val(inputs.title);
+                $("#unitPrice").val(inputs.unitPrice);
+                $("#discount").val(inputs.discount);
+                $("#quantity").val(inputs.quantity);
+            })
+
         })
 
     </script>
