@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="~/Content/Custom/product.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Custom/product.js"></script>
     <title>Index</title>
 </head>
 <body>
@@ -42,6 +43,7 @@
                         <br />
                         <div class="col-sm-6">
                             <input type="button" id="btn-add" value="Add"/>
+                            <input type="button" id="btn-remove" value="Remove" />
                         </div>
                     </div>
                 }
@@ -84,62 +86,5 @@
                 </div>
         </div>
     </div>
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            function sendAjaxRequest(url, type, data) {
-                return $.ajax({
-                    url: url,
-                    type: type,
-                    data: JSON.stringify(data),
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                }).fail(function (error) {
-                    console.log(error);
-                });
-            };
-
-            var ref_ProductViewModel = new Object();
-            var inputs = new Object();
-            var selectedCategory;
-            function createProduct() {
-                ref_ProductViewModel.categoryRef = selectedCategory;
-                ref_ProductViewModel.title = $("#title").val();
-                ref_ProductViewModel.unitPrice = $("#unitPrice").val();
-                ref_ProductViewModel.discount = $("#discount").val();
-                ref_ProductViewModel.quantity = $("#quantity").val();
-                console.log(ref_ProductViewModel);
-                sendAjaxRequest('/Product/Create/', 'POST', ref_ProductViewModel);
-            }
-
-            $("#categoryRef").change(function () {
-                selectedCategory = $(this).children("option:selected").val();
-                console.log(this.children.option.innerHTML);
-            })
-
-            $("#btn-add").click(createProduct);
-
-            $("#btn-select").click(function () {
-                var $this = this;
-                var divContent = $this.closest("div").children;
-                console.log(divContent);
-                inputs = {
-                    category: divContent[0].innerText,
-                    title: divContent[1].innerText,
-                    productId: divContent[2].innerText,
-                    unitPrice: divContent[6].innerText,
-                    discount: divContent[8] ? divContent[8].children[0].innerText : null,
-                    quantity: divContent[9].innerText                   
-                }
-                console.log(inputs);
-                $("#title").val(inputs.title);
-                $("#unitPrice").val(inputs.unitPrice);
-                $("#discount").val(inputs.discount);
-                $("#quantity").val(inputs.quantity);
-            })
-
-        })
-
-    </script>
 </body>
 </html>

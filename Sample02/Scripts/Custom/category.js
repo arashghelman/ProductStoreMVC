@@ -17,14 +17,14 @@ var inputs = new Object();
 function createCategory() {
     ref_CategoryViewModel.title = $("#title").val();
     sendAjaxRequest('/Category/Create/', 'POST', ref_CategoryViewModel).done(function () {
-        $("#table-div").load(location.href + " #table-div>*", "");
+        location.reload();
     });
 };
 
 function deleteCategory() {
     ref_CategoryViewModel.id = inputs.id;
     sendAjaxRequest('/Category/Delete/', 'POST', ref_CategoryViewModel).done(function () {
-        $("#table-div").load(location.href + " #table-div>*", "");
+        location.reload();
         $("#title").val("");
     });
 };
@@ -33,7 +33,7 @@ function editCategory() {
     ref_CategoryViewModel.id = inputs.id;
     ref_CategoryViewModel.title = $("#title").val();
     sendAjaxRequest('/Category/Edit/', 'POST', ref_CategoryViewModel).done(function () {
-        $("#table-div").load(location.href + " #table-div>*", "");
+        location.reload();
         $("#title").val("");
     });
 };

@@ -55,9 +55,10 @@ namespace Sample02.Models.ViewModels
         {
             var categoryList = Ref_ProductRepository.SelectCategoryItems();
             return categoryList;
-        } 
+        }
         #endregion
 
+        #region [- PostProduct(ProductViewModel ref_ProductViewModel) -]
         public void PostProduct(ProductViewModel ref_ProductViewModel)
         {
             Ref_Product = new DomainModels.DTO.EF.Product()
@@ -71,8 +72,38 @@ namespace Sample02.Models.ViewModels
             };
 
             Ref_ProductRepository.Insert(Ref_Product);
+        } 
+        #endregion
 
+        #region [- DeleteProduct(ProductViewModel ref_ProductViewModel) -]
+        public void DeleteProduct(ProductViewModel ref_ProductViewModel)
+        {
+            Ref_Product = new DomainModels.DTO.EF.Product()
+            {
+                Id = ref_ProductViewModel.Id
+            };
+
+            Ref_ProductRepository.Delete(Ref_Product.Id);
         }
+        #endregion
+
+        #region [- PutProduct(ProductViewModel ref_ProductViewModel) -]
+        public void PutProduct(ProductViewModel ref_ProductViewModel)
+        {
+            Ref_Product = new DomainModels.DTO.EF.Product()
+            {
+                Id = ref_ProductViewModel.Id,
+                Category_Ref = ref_ProductViewModel.CategoryRef,
+                ProductName = ref_ProductViewModel.Title,
+                UnitPrice = ref_ProductViewModel.UnitPrice,
+                Discount = ref_ProductViewModel.Discount,
+                Quantity = ref_ProductViewModel.Quantity,
+                ProductPhoto = ref_ProductViewModel.ProductPhoto
+            };
+
+            Ref_ProductRepository.Update(Ref_Product);
+        } 
+        #endregion
 
     }
 }
